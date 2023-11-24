@@ -38,6 +38,7 @@ class AdvertisementRestControllerTest extends PostgresTestContainer {
                         .content(advertisement)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("title", Is.is("new adv")))
                 .andExpect(MockMvcResultMatchers.content()
                         .contentType(responseType));
     }

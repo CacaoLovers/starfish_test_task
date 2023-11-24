@@ -6,6 +6,12 @@ import ru.avito.ads.model.Category;
 import ru.avito.ads.model.CategoryRequest;
 import ru.avito.ads.model.CategoryResponse;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
-public interface CategoryMapper extends AbstractMapper<Category, CategoryRequest, CategoryResponse>{
+public interface CategoryMapper{
+    Category toEntity(CategoryRequest entityRequest);
+    CategoryResponse toEntityResponse(Category entityResponse);
+    List<CategoryResponse> toEntityListResponse(Iterable<Category> entities);
+
 }

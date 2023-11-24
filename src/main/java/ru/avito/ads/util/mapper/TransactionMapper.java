@@ -5,6 +5,11 @@ import ru.avito.ads.model.Transaction;
 import ru.avito.ads.model.TransactionRequest;
 import ru.avito.ads.model.TransactionResponse;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
-public interface TransactionMapper extends AbstractMapper<Transaction, TransactionRequest, TransactionResponse>{
+public interface TransactionMapper{
+    TransactionResponse toEntityResponse(Transaction entityResponse);
+    List<TransactionResponse> toEntityListResponse(Iterable<Transaction> entities);
+
 }
