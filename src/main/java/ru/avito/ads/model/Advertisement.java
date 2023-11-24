@@ -1,8 +1,6 @@
 package ru.avito.ads.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +15,10 @@ import ru.avito.ads.model.record.AdvertisementStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Advertisement extends AbstractEntity{
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
     private AdvertisementStatus status;
+
     private String title;
     private String description;
 

@@ -2,6 +2,7 @@ package ru.avito.ads.controller.rest;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.avito.ads.api.AdvertisementApi;
@@ -22,7 +23,7 @@ public class AdvertisementController implements AdvertisementApi {
 
     @Override
     public ResponseEntity<AdvertisementResponse> createAdvertisement(AdvertisementRequest body) {
-        return ResponseEntity.ok().body(advertisementService.createEntity(body));
+        return ResponseEntity.status(HttpStatus.CREATED).body(advertisementService.createEntity(body));
     }
 
     @Override

@@ -1,11 +1,9 @@
 create extension if not exists "uuid-ossp";
 
-create type advertisement_status as enum ('ACTIVE', 'CLOSED', 'BANNED', 'DELETED');
-
 create table account(
     id uuid primary key default public.uuid_generate_v4(),
-    first_name varchar(256),
-    email varchar(256) unique not null,
+    first_name varchar(255),
+    email varchar(255) unique not null,
     created_time timestamptz,
     updated_time timestamptz
 );
@@ -20,8 +18,8 @@ create table category(
 
 create table advertisement(
     id uuid primary key default public.uuid_generate_v4(),
-    status advertisement_status not null default 'ACTIVE',
-    title varchar(256),
+    status varchar not null default 'ACTIVE',
+    title varchar(255),
     description text,
     category_id uuid references category(id),
     owner_id uuid references account(id),

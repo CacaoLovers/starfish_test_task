@@ -3,7 +3,6 @@ package ru.avito.ads.service.impl;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.avito.ads.exception.GlobalServiceException;
 import ru.avito.ads.exception.ResourceNotFoundException;
 import ru.avito.ads.exception.UnacceptableActionException;
 import ru.avito.ads.model.*;
@@ -45,7 +44,7 @@ public class TransactionStandardService implements TransactionService {
                 .buyer(buyer)
                 .build();
 
-        advertisement.setStatus(AdvertisementStatus.CLOSE);
+        advertisement.setStatus(AdvertisementStatus.CLOSED);
 
         advertisementService.updateAdvertisement(advertisement);
 
