@@ -5,7 +5,8 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import ru.avito.ads.model.record.AdvertisementStatus;
 
-@Data
+@Getter
+@Setter
 @Entity
 @SuperBuilder
 @NoArgsConstructor

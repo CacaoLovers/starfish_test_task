@@ -1,9 +1,9 @@
-openapi: 3.0.1
+openapi: 3.0.0
 
 info:
   version: 1.0.0
-  title: Student Course Service
-  description: TaskService for processing tasks
+  title: Advertisement service
+  description: Advertisement service for processing ads
 
 paths:
   /advertisement:

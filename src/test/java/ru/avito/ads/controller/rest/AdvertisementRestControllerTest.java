@@ -33,7 +33,6 @@ class AdvertisementRestControllerTest extends PostgresTestContainer {
 
         MediaType responseType = new MediaType(MediaType.APPLICATION_JSON);
 
-
         mockMvc.perform(MockMvcRequestBuilders.post("/advertisement")
                         .content(advertisement)
                         .contentType(MediaType.APPLICATION_JSON))
