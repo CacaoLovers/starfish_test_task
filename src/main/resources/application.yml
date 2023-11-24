@@ -2,5 +2,13 @@ spring:
   application:
     name: ads-service
 
+  datasource:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.yml
+
 server:
-  port: ${SERVERls_PORT}
+  port: ${SERVER_PORT:8080}
