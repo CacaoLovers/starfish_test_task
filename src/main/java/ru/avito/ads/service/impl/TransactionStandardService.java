@@ -28,19 +28,17 @@ public class TransactionStandardService implements TransactionService {
     @Override
     @Transactional
     public TransactionResponse createEntity(TransactionRequest transactionRequest) throws ResourceNotFoundException{
-        Account seller = accountService.getEntityById(transactionRequest.getSeller());
         Account buyer = accountService.getEntityById(transactionRequest.getBuyer());
         Advertisement advertisement = advertisementService.getEntityById(transactionRequest.getAdvertisement());
 
         if (!advertisement.getStatus().equals(AdvertisementStatus.ACTIVE)
-                || !advertisement.getOwner().equals(seller)
-                || seller.equals(buyer)) {
+                || advertisement.getOwner().equals(buyer)) {
             throw new UnacceptableActionException();
         }
 
         Transaction transaction = Transaction.builder()
                 .advertisement(advertisement)
-                .seller(seller)
+                .seller(advertisement.getOwner())
                 .buyer(buyer)
                 .build();
 
