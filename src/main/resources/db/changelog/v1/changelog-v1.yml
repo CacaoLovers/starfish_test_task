@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      relativeToChangelogFile: true
+      file: DDL/2023-11-23-STARFISH_TEST_TASK-init-db.yml

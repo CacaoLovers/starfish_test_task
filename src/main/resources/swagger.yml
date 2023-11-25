@@ -1,0 +1,348 @@
+openapi: 3.0.0
+
+info:
+  version: 1.0.0
+  title: Advertisement service
+  description: Advertisement service for processing ads
+
+paths:
+  /advertisement:
+    get:
+      tags:
+        - 'Advertisement'
+      summary: Get advertisement
+      operationId: getAdvertisement
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdvertisementResponse'
+    post:
+      tags:
+        - 'Advertisement'
+      summary: Create advertisement
+      operationId: createAdvertisement
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdvertisementRequest'
+      responses:
+        201:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvertisementResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /advertisement/{advertisementId}:
+
+    get:
+      tags:
+        - 'Advertisement'
+      summary: Get advertisement
+      operationId: getAdvertisementById
+      parameters:
+        - name: advertisementId
+          in: path
+          description: Advertisement id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvertisementResponse'
+
+    put:
+      tags:
+        - 'Advertisement'
+      summary: Update advertisement
+      operationId: updateAdvertisement
+      parameters:
+        - name: advertisementId
+          in: path
+          description: Advertisement id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdvertisementUpdateRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvertisementResponse'
+        404:
+          description: Advertisement not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+    delete:
+      tags:
+        - 'Advertisement'
+      summary: delete advertisement
+      operationId: deleteAdvertisement
+      parameters:
+        - name: advertisementId
+          in: path
+          description: Advertisement id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Success
+        404:
+          description: Advertisement not found
+
+  /advertisement/{accountId}/owner:
+    get:
+      tags:
+        - 'Advertisement'
+      summary: Get advertisement
+      operationId: getAdvertisementByOwner
+      parameters:
+        - name: accountId
+          in: path
+          description: Account seller id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdvertisementResponse'
+
+  /transaction:
+    post:
+      tags:
+        - 'Transaction'
+      summary: Deal
+      operationId: createDeal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        400:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+
+  /transaction/{accountId}/buyer:
+
+    get:
+      tags:
+        - 'Transaction'
+      summary: Get advertisement
+      operationId: getTransactionByBuyer
+      parameters:
+        - name: accountId
+          in: path
+          description: Account seller id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionResponse'
+
+  /transaction/{accountId}/seller:
+
+    get:
+      tags:
+        - 'Transaction'
+      summary: Get advertisement
+      operationId: getTransactionBySeller
+      parameters:
+        - name: accountId
+          in: path
+          description: Account seller id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionResponse'
+
+components:
+  schemas:
+
+
+    TransactionRequest:
+      type: object
+      properties:
+        advertisement:
+          type: string
+          format: uuid
+        seller:
+          type: string
+          format: uuid
+        buyer:
+          type: string
+          format: uuid
+
+    CategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        parentId:
+          type: string
+          format: uuid
+
+    AccountRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        email:
+          type: string
+          format: email
+
+    AdvertisementRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        categoryId:
+          type: string
+          format: uuid
+        ownerId:
+          type: string
+          format: uuid
+
+    AdvertisementResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          $ref: '#/components/schemas/AdvertisementStatus'
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          $ref: '#/components/schemas/CategoryResponse'
+
+    AdvertisementUpdateRequest:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/AdvertisementStatus'
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+          format: uuid
+
+    AccountResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        firstName:
+          type: string
+        email:
+          type: string
+          format: email
+
+    CategoryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+
+
+    AdvertisementStatus:
+      type: string
+      enum:
+        - ACTIVE
+        - CLOSED
+        - BANNED
+        - DELETED
+
+    TransactionResponse:
+      type: object
+      properties:
+        advertisement:
+          $ref: '#/components/schemas/AdvertisementResponse'
+        seller:
+          $ref: '#/components/schemas/AccountResponse'
+        buyer:
+          $ref: '#/components/schemas/AccountResponse'
+
+
+    ErrorMessage:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: Resource not found

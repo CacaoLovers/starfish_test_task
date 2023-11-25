@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: init-db
+      author: Marsel Gabitov
+      changes:
+        - sqlFile:
+            relativeToChangelogFile: true
+            dbms: postgresql
+            path: SQL/2023-11-23-STARFISH_TEST_TASK-init-db.sql
